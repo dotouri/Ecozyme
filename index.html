@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecozyme: 생화학으로 지구를 되살리다</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", sans-serif;
+      background-color: #f4f9f6;
+      color: #1a3c34;
+      overflow-x: hidden;
+    }
+
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom right, #a8e6cf, #dcedc1);
+      animation: fadeIn 2s ease-in;
+    }
+
+    header h1 {
+      font-size: 3.5em;
+      margin: 0;
+      animation: slideDown 1.5s ease-out;
+    }
+
+    header p {
+      font-size: 1.5em;
+      margin-top: 10px;
+      animation: fadeIn 3s ease;
+    }
+
+    section {
+      padding: 80px 10%;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    h2 {
+      color: #2b7a78;
+      font-size: 2em;
+      border-left: 5px solid #2b7a78;
+      padding-left: 10px;
+    }
+
+    p {
+      line-height: 1.8em;
+      font-size: 1.1em;
+    }
+
+    .graph-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+    footer {
+      background-color: #2b7a78;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      font-size: 1em;
+    }
+
+    /* 애니메이션 */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* 버튼 */
+    .btn {
+      display: inline-block;
+      background-color: #2b7a78;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #205e5a;
+    }
+
+    /* 효소 작용 애니메이션 */
+    .enzyme-animation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+      position: relative;
+      height: 200px;
+    }
+
+    .plastic {
+      width: 250px;
+      height: 60px;
+      background: linear-gradient(90deg, #7fd6d4, #4fb3b0);
+      border-radius: 10px;
+      position: absolute;
+      animation: degrade 10s linear infinite;
+    }
+
+    .enzyme {
+      width: 50px;
+      height: 50px;
+      background: #ffb347;
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      animation: moveEnzyme 10s linear infinite;
+      box-shadow: 0 0 15px #ffd27f;
+    }
+
+    @keyframes moveEnzyme {
+      0% { left: 0; }
+      50% { left: 80%; transform: scale(1.2); }
+      100% { left: 0; }
+    }
+
+    @keyframes degrade {
+      0% { width: 250px; opacity: 1; }
+      50% { width: 150px; opacity: 0.7; }
+      100% { width: 80px; opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Ecozyme</h1>
+    <p>생화학으로 지구를 정화하다 🌍</p>
+    <a href="#idea" class="btn">프로젝트 보기</a>
+  </header>
+
+  <section id="problem">
+    <h2>문제의식</h2>
+    <p>
+      플라스틱 폐기물은 자연에서 분해되지 않아 해양 생태계를 위협하고 있다.  
+      이를 생화학적 관점에서 접근하면, **효소를 이용한 생분해 기술**로 해결할 수 있다.  
+      이는 환경을 단순히 청소하는 것이 아니라, **지구의 생화학적 순환을 회복시키는 일**이다.
+    </p>
+  </section>
+
+  <section id="idea">
+    <h2>핵심 아이디어</h2>
+    <p>
+      나의 아이디어는 플라스틱을 분해하는 효소(Ecozyme)를 활용하여  
+      미생물이 스스로 환경 속에서 오염을 정화하도록 하는 것이다.  
+      효소의 반응 속도를 높이고 안정성을 유지하는 기술이 핵심이다.
+    </p>
+
+    <div class="enzyme-animation">
+      <div class="enzyme"></div>
+      <div class="plastic"></div>
+    </div>
+
+    <div class="graph-container">
+      <canvas id="biodegChart"></canvas>
+    </div>
+  </section>
+
+  <section id="web">
+    <h2>웹페이지 구현 내용</h2>
+    <p>
+      이 웹페이지는 스크롤형으로 구성되어 있으며,  
+      **효소가 플라스틱을 분해하는 애니메이션**과  
+      **Chart.js 기반 분해율 그래프**를 포함한다.  
+      시각 자료를 통해 생화학의 원리를 쉽게 이해할 수 있도록 구성했다.
+    </p>
+    <p>
+      구현 과정에서 느낀 점:  
+      코드 속에서도 과학의 원리를 표현할 수 있다는 점이 새로웠다.  
+      실험 데이터가 부족한 점은 아쉬웠지만, **아이디어 시각화 능력**을 키울 수 있었다.
+    </p>
+  </section>
+
+  <section id="reflection">
+    <h2>성찰</h2>
+    <p>
+      이번 프로젝트를 통해 생화학은 생명을 연구하는 학문을 넘어,  
+      환경 문제를 해결하는 **지속가능한 과학**임을 깨달았다.  
+      작은 분자 반응 하나가 지구의 미래를 바꿀 수 있다는 가능성을 보았다.
+    </p>
+  </section>
+
+  <footer>
+    © 2025 Ecozyme | Made with 💚 by Sohyun
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('biodegChart');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['0일', '5일', '10일', '15일', '20일'],
+        datasets: [
+          {
+            label: '효소 미처리 시',
+            data: [0, 5, 10, 13, 15],
+            borderWidth: 3,
+            borderColor: '#7fd6d4',
+            tension: 0.3
+          },
+          {
+            label: 'Ecozyme 처리 시',
+            data: [0, 25, 50, 75, 95],
+            borderWidth: 3,
+            borderColor: '#ffb347',
+            tension: 0.3
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' },
+          title: { display: true, text: '플라스틱 분해율 변화 (%)' }
+        },
+        scales: {
+          y: { beginAtZero: true, max: 100 }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
